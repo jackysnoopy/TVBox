@@ -1,0 +1,56 @@
+{
+  "version": 1,
+  "updatedAt": "2026-10-26",
+  "note": "人工补源表：iptv-org 里已死/缺失的频道，在这里按 channel id 补上可用直链。烘焙时合并进 catalog，流上标 origin=curated。加源只需在 channels 下增加数组项，不要改 bake_catalog.py。",
+  "channels": {
+    "CCTV6.cn": [
+      {
+        "url": "http://223.110.241.204:6610/gitv/live1/G_CCTV-6-AVS-4K264/G_CCTV-6-AVS-4K264/index.m3u8",
+        "quality": "2160p",
+        "note": "江苏移动 GITV CDN，302 跳转，2026-10-26 实测可播（iptv-org 原有 3 条源服务端已全死）"
+      }
+    ],
+    "CCTV1.cn": [
+      {
+        "url": "http://223.110.241.204:6610/gitv/live1/G_CCTV-1-AVS-4K264/G_CCTV-1-AVS-4K264/index.m3u8",
+        "quality": "2160p",
+        "note": "江苏移动 GITV CDN，302 跳转；仅作降级备用，内置源可用时排在后面"
+      }
+    ],
+    "CCTV2.cn": [
+      {
+        "url": "http://223.110.241.204:6610/gitv/live1/G_CCTV-2-AVS-4K264/G_CCTV-2-AVS-4K264/index.m3u8",
+        "quality": "2160p",
+        "note": "江苏移动 GITV CDN，302 跳转；仅作降级备用"
+      }
+    ],
+    "CCTV3.cn": [
+      {
+        "url": "http://223.110.241.204:6610/gitv/live1/G_CCTV-3-AVS-4K264/G_CCTV-3-AVS-4K264/index.m3u8",
+        "quality": "2160p",
+        "note": "江苏移动 GITV CDN，302 跳转；仅作降级备用"
+      }
+    ],
+    "CCTV5.cn": [
+      {
+        "url": "http://223.110.241.204:6610/gitv/live1/G_CCTV-5-AVS-4K264/G_CCTV-5-AVS-4K264/index.m3u8",
+        "quality": "2160p",
+        "note": "江苏移动 GITV CDN，302 跳转；仅作降级备用"
+      }
+    ],
+    "CCTV8.cn": [
+      {
+        "url": "http://223.110.241.204:6610/gitv/live1/G_CCTV-8-AVS-4K264/G_CCTV-8-AVS-4K264/index.m3u8",
+        "quality": "2160p",
+        "note": "江苏移动 GITV CDN，302 跳转；仅作降级备用"
+      }
+    ],
+    "CCTV9.cn": [
+      {
+        "url": "http://223.110.241.204:6610/gitv/live1/G_CCTV-9-AVS-4K264/G_CCTV-9-AVS-4K264/index.m3u8",
+        "quality": "2160p",
+        "note": "江苏移动 GITV CDN，302 跳转；仅作降级备用"
+      }
+    ]
+  }
+}

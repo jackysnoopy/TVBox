@@ -1,0 +1,20 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Build artifacts (regenerate with: bash build.sh)
+build/
+
+# Bake tool caches (regenerate from iptv-org API)
+tools/.cache/
+
+# Local assistant metadata
+.workbuddy/
+
+# Editor / Swift
+*.swp
+*~
+*.xcodeproj/xcuserdata/
+*.xcworkspace/xcuserdata/
+DerivedData/
