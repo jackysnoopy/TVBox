@@ -1,0 +1,286 @@
+{
+  "version": 1,
+  "updatedAt": "2026-11-19",
+  "note": "从 iptv-org/Free-TV/imDazui 三仓库补充的中文地方台；严格探测存活且抓帧验台标。number 为固定台号，不参与 assign_range 重排。",
+  "channels": [
+    {
+      "id": "local.001",
+      "name": "嘉佳卡通",
+      "group": "地方",
+      "number": 291,
+      "url": "http://223.110.241.204:6610/gitv/live1/G_JIAJIA/G_JIAJIA/",
+      "quality": "",
+      "note": "来源 china，2026-11-19 严格探测存活 + 抓帧验台标"
+    },
+    {
+      "id": "local.002",
+      "name": "江津新闻综合",
+      "group": "地方",
+      "number": 292,
+      "url": "http://222.179.155.21:1935/ch1.m3u8",
+      "quality": "",
+      "note": "来源 china，2026-11-19 严格探测存活 + 抓帧验台标"
+    },
+    {
+      "id": "local.003",
+      "name": "江津经济生活",
+      "group": "地方",
+      "number": 293,
+      "url": "http://222.179.155.21:1935/ch0.m3u8",
+      "quality": "",
+      "note": "来源 china，2026-11-19 严格探测存活 + 抓帧验台标"
+    },
+    {
+      "id": "local.004",
+      "name": "晋江侨乡",
+      "group": "地方",
+      "number": 294,
+      "url": "http://stream.jinjiang.tv/1/sd/live.m3u8",
+      "quality": "",
+      "note": "来源 china，2026-11-19 严格探测存活 + 抓帧验台标"
+    },
+    {
+      "id": "local.005",
+      "name": "湘潭新闻综合",
+      "group": "地方",
+      "number": 295,
+      "url": "http://live.hnxttv.com:9601/live/xwzh/800K/tzwj_video.m3u8",
+      "quality": "",
+      "note": "来源 china，2026-11-19 严格探测存活 + 抓帧验台标"
+    },
+    {
+      "id": "local.006",
+      "name": "长春综合",
+      "group": "地方",
+      "number": 296,
+      "url": "http://stream2.jlntv.cn/jlcc/sd/live.m3u8",
+      "quality": "",
+      "note": "来源 china，2026-11-19 严格探测存活 + 抓帧验台标"
+    },
+    {
+      "id": "local.007",
+      "name": "延边新闻综合",
+      "group": "地方",
+      "number": 297,
+      "url": "http://stream2.jlntv.cn/jlyb/sd/live.m3u8",
+      "quality": "",
+      "note": "来源 china，2026-11-19 严格探测存活 + 抓帧验台标"
+    },
+    {
+      "id": "local.008",
+      "name": "吉林市新闻综合",
+      "group": "地方",
+      "number": 298,
+      "url": "http://stream2.jlntv.cn/jilin1/sd/live.m3u8",
+      "quality": "",
+      "note": "来源 china，2026-11-19 严格探测存活 + 抓帧验台标"
+    },
+    {
+      "id": "local.009",
+      "name": "四平新闻综合",
+      "group": "地方",
+      "number": 299,
+      "url": "http://stream2.jlntv.cn/sptv/sd/live.m3u8",
+      "quality": "",
+      "note": "来源 china，2026-11-19 严格探测存活 + 抓帧验台标"
+    },
+    {
+      "id": "local.010",
+      "name": "辽源新闻综合",
+      "group": "地方",
+      "number": 300,
+      "url": "http://stream2.jlntv.cn/liaoyuan1/sd/live.m3u8",
+      "quality": "",
+      "note": "来源 china，2026-11-19 严格探测存活 + 抓帧验台标"
+    },
+    {
+      "id": "local.011",
+      "name": "白山新闻综合",
+      "group": "地方",
+      "number": 301,
+      "url": "http://stream2.jlntv.cn/baishan1/sd/live.m3u8",
+      "quality": "",
+      "note": "来源 china，2026-11-19 严格探测存活 + 抓帧验台标"
+    },
+    {
+      "id": "local.012",
+      "name": "松原新闻综合",
+      "group": "地方",
+      "number": 302,
+      "url": "http://stream2.jlntv.cn/sytv/sd/live.m3u8",
+      "quality": "",
+      "note": "来源 china，2026-11-19 严格探测存活 + 抓帧验台标"
+    },
+    {
+      "id": "local.013",
+      "name": "农安新闻综合",
+      "group": "地方",
+      "number": 303,
+      "url": "http://stream2.jlntv.cn/naxw/sd/live.m3u8",
+      "quality": "",
+      "note": "来源 china，2026-11-19 严格探测存活 + 抓帧验台标"
+    },
+    {
+      "id": "local.014",
+      "name": "萧山新闻综合",
+      "group": "地方",
+      "number": 304,
+      "url": "http://l.cztvcloud.com/channels/lantian/SXxiaoshan1/720p.m3u8",
+      "quality": "",
+      "note": "来源 china，2026-11-19 严格探测存活 + 抓帧验台标"
+    },
+    {
+      "id": "local.015",
+      "name": "余姚新闻综合",
+      "group": "地方",
+      "number": 305,
+      "url": "http://l.cztvcloud.com/channels/lantian/SXyuyao1/720p.m3u8",
+      "quality": "",
+      "note": "来源 china，2026-11-19 严格探测存活 + 抓帧验台标"
+    },
+    {
+      "id": "local.016",
+      "name": "余姚姚江文化",
+      "group": "地方",
+      "number": 306,
+      "url": "http://l.cztvcloud.com/channels/lantian/SXyuyao2/720p.m3u8",
+      "quality": "",
+      "note": "来源 china，2026-11-19 严格探测存活 + 抓帧验台标"
+    },
+    {
+      "id": "local.017",
+      "name": "余姚幸福生活",
+      "group": "地方",
+      "number": 307,
+      "url": "http://l.cztvcloud.com/channels/lantian/SXyuyao3/720p.m3u8",
+      "quality": "",
+      "note": "来源 china，2026-11-19 严格探测存活 + 抓帧验台标"
+    },
+    {
+      "id": "local.018",
+      "name": "嵊州新闻综合",
+      "group": "地方",
+      "number": 308,
+      "url": "http://l.cztvcloud.com/channels/lantian/SXshengzhou1/720p.m3u8",
+      "quality": "",
+      "note": "来源 china，2026-11-19 严格探测存活 + 抓帧验台标"
+    },
+    {
+      "id": "local.019",
+      "name": "上虞新闻综合",
+      "group": "地方",
+      "number": 309,
+      "url": "http://l.cztvcloud.com/channels/lantian/SXshangyu1/720p.m3u8",
+      "quality": "",
+      "note": "来源 china，2026-11-19 严格探测存活 + 抓帧验台标"
+    },
+    {
+      "id": "local.020",
+      "name": "上虞经济文化",
+      "group": "地方",
+      "number": 310,
+      "url": "http://l.cztvcloud.com/channels/lantian/SXshangyu2/720p.m3u8",
+      "quality": "",
+      "note": "来源 china，2026-11-19 严格探测存活 + 抓帧验台标"
+    },
+    {
+      "id": "local.021",
+      "name": "新昌新闻综合",
+      "group": "地方",
+      "number": 311,
+      "url": "http://l.cztvcloud.com/channels/lantian/SXxinchang1/720p.m3u8",
+      "quality": "",
+      "note": "来源 china，2026-11-19 严格探测存活 + 抓帧验台标"
+    },
+    {
+      "id": "local.022",
+      "name": "新昌休闲影视",
+      "group": "地方",
+      "number": 312,
+      "url": "http://l.cztvcloud.com/channels/lantian/SXxinchang2/720p.m3u8",
+      "quality": "",
+      "note": "来源 china，2026-11-19 严格探测存活 + 抓帧验台标"
+    },
+    {
+      "id": "local.023",
+      "name": "江苏休闲体育",
+      "group": "地方",
+      "number": 313,
+      "url": "http://223.110.241.150:6610/gitv/live1/G_JSTY/G_JSTY/",
+      "quality": "",
+      "note": "来源 im1300，2026-11-19 严格探测存活 + 抓帧验台标"
+    },
+    {
+      "id": "local.024",
+      "name": "常州新闻综合",
+      "group": "地方",
+      "number": 314,
+      "url": "http://223.110.246.80/ott.js.chinamobile.com/PLTV/4/224/3221227899/index.m3u8",
+      "quality": "",
+      "note": "来源 im1300，2026-11-19 严格探测存活 + 抓帧验台标"
+    },
+    {
+      "id": "local.025",
+      "name": "常州都市",
+      "group": "地方",
+      "number": 315,
+      "url": "http://223.110.246.82/ott.js.chinamobile.com/PLTV/4/224/3221227955/index.m3u8",
+      "quality": "",
+      "note": "来源 im1300，2026-11-19 严格探测存活 + 抓帧验台标"
+    },
+    {
+      "id": "local.026",
+      "name": "常州生活",
+      "group": "地方",
+      "number": 316,
+      "url": "http://223.110.246.80/ott.js.chinamobile.com/PLTV/4/224/3221227902/index.m3u8",
+      "quality": "",
+      "note": "来源 im1300，2026-11-19 严格探测存活 + 抓帧验台标"
+    },
+    {
+      "id": "local.027",
+      "name": "常州公共",
+      "group": "地方",
+      "number": 317,
+      "url": "http://223.110.246.82/ott.js.chinamobile.com/PLTV/4/224/3221227905/index.m3u8",
+      "quality": "",
+      "note": "来源 im1300，2026-11-19 严格探测存活 + 抓帧验台标"
+    },
+    {
+      "id": "local.028",
+      "name": "徐州1",
+      "group": "地方",
+      "number": 318,
+      "url": "http://183.207.249.71/PLTV/3/224/3221225945/index.m3u8",
+      "quality": "",
+      "note": "来源 im1300，2026-11-19 严格探测存活 + 抓帧验台标"
+    },
+    {
+      "id": "local.029",
+      "name": "徐州2",
+      "group": "地方",
+      "number": 319,
+      "url": "http://183.207.249.71/PLTV/3/224/3221225947/index.m3u8",
+      "quality": "",
+      "note": "来源 im1300，2026-11-19 严格探测存活 + 抓帧验台标"
+    },
+    {
+      "id": "local.030",
+      "name": "徐州3",
+      "group": "地方",
+      "number": 320,
+      "url": "http://183.207.249.71/PLTV/3/224/3221225949/index.m3u8",
+      "quality": "",
+      "note": "来源 im1300，2026-11-19 严格探测存活 + 抓帧验台标"
+    },
+    {
+      "id": "local.031",
+      "name": "徐州4",
+      "group": "地方",
+      "number": 321,
+      "url": "http://183.207.249.71/PLTV/3/224/3221225951/index.m3u8",
+      "quality": "",
+      "note": "来源 im1300，2026-11-19 严格探测存活 + 抓帧验台标"
+    }
+  ]
+}

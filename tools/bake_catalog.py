@@ -959,6 +959,44 @@ def load_blocked_urls(path: str | None = None) -> set[str]:
     return {u.strip() for u in blocked if isinstance(u, str) and u.strip()}
 
 
+def load_extra_channels(path: str | None = None) -> list[dict]:
+    """读取从其它开源列表人工补充的频道（extra-channels.json）。
+
+    这些频道不在 iptv-org 索引里（id 为 local.NNN），带固定台号，不参与 assign_range
+    重排；源经严格探测 + 抓帧验台标后才写入。文件缺失/损坏都只是「没有补充频道」。
+    """
+    target = path or os.path.join(ROOT, "tools", "extra-channels.json")
+    if not os.path.exists(target):
+        return []
+    try:
+        with open(target, "r", encoding="utf-8") as handle:
+            payload = json.load(handle)
+    except (OSError, ValueError) as exc:
+        print("  !! 补充频道文件读取失败（忽略）：%s" % exc, flush=True)
+        return []
+    result = []
+    for entry in (payload.get("channels") or []):
+        cid = entry.get("id") or ""
+        url = entry.get("url") or ""
+        if not cid or not url.lower().startswith(("http://", "https://")):
+            continue
+        result.append({
+            "id": cid,
+            "name": entry.get("name") or cid,
+            "group": entry.get("group") or "地方",
+            "number": int(entry.get("number") or 0),
+            "streams": [{
+                "url": url,
+                "quality": entry.get("quality") or "",
+                "userAgent": entry.get("user_agent") or "",
+                "referrer": entry.get("referrer") or "",
+                "isAlive": False,
+                "origin": "curated",
+            }],
+        })
+    return result
+
+
 def merge_stream_order(builtin: list[dict], curated: list[dict]) -> list[dict]:
     """合并内置源与人工补源。
 
@@ -1105,6 +1143,31 @@ def build(refresh: bool, probe: bool, region_filter: list[str], with_logos: bool
                      key=lambda item: item["name"])
     buckets["国际"].sort(key=lambda item: (item["_curated"], item["name"]))
     assign_range(buckets["国际"], 500, 599, key=lambda item: (item["_curated"], item["name"]))
+
+    # 从其它开源列表人工补充的频道（extra-channels.json）：带固定台号，不参与上面
+    # 的 assign_range 重排，追加到对应分组。按 id/name/number 去重，避免和 iptv-org
+    # 已有频道冲突。这些 id（local.NNN）不在 iptv-org streams.json 里，后台刷新会原样保留。
+    extra_channels = load_extra_channels()
+    if extra_channels:
+        used_ids = {it["id"] for items in buckets.values() for it in items}
+        used_names = {it["name"] for items in buckets.values() for it in items}
+        used_numbers = {it["number"] for items in buckets.values() for it in items}
+        added = 0
+        for ex in extra_channels:
+            grp = ex["group"] if ex["group"] in buckets else "地方"
+            if (ex["id"] in used_ids or ex["name"] in used_names
+                    or ex["number"] in used_numbers or ex["number"] <= 0):
+                continue
+            ex.update({
+                "subname": ex["name"], "logoURL": "", "website": "",
+                "country": "CN", "categories": [],
+                "_curated_streams": [], "_curated": 9999,
+            })
+            buckets[grp].append(ex)
+            used_ids.add(ex["id"]); used_names.add(ex["name"]); used_numbers.add(ex["number"])
+            added += 1
+        print("  补充固定台号频道 %d 个（跳过冲突 %d）"
+              % (added, len(extra_channels) - added), flush=True)
 
     ordered = []
     for group in ("央视", "卫视", "地方", "港澳台", "国际"):

@@ -238,6 +238,39 @@ class BlockedURLsTest(unittest.TestCase):
         self.assertEqual([stream["url"] for stream in merged], ["curated"])
 
 
+class ExtraChannelsTest(unittest.TestCase):
+    """额外频道配置：解析、固定台号、跳过非法与损坏文件。"""
+
+    def setUp(self):
+        self.directory = tempfile.mkdtemp(prefix="tvbox-extra-")
+
+    def tearDown(self):
+        shutil.rmtree(self.directory, ignore_errors=True)
+
+    def test_parses_and_keeps_fixed_number(self):
+        path = os.path.join(self.directory, "extra.json")
+        with open(path, "w", encoding="utf-8") as handle:
+            json.dump({"channels": [
+                {"id": "local.001", "name": "测试台", "group": "地方", "number": 291,
+                 "url": "http://example.com/a.m3u8", "quality": "720p"},
+                {"id": "local.002", "name": "非法URL", "number": 292, "url": "ftp://x/y"},
+                {"id": "", "name": "无id", "number": 293, "url": "http://example.com/c.m3u8"},
+            ]}, handle)
+        items = bake.load_extra_channels(path)
+        self.assertEqual(len(items), 1, "非法 URL / 空 id 要跳过")
+        item = items[0]
+        self.assertEqual(item["number"], 291, "固定台号不能被重排")
+        self.assertEqual(item["streams"][0]["origin"], "curated")
+        self.assertEqual(item["streams"][0]["quality"], "720p")
+
+    def test_missing_or_broken_is_empty(self):
+        self.assertEqual(bake.load_extra_channels(os.path.join(self.directory, "nope.json")), [])
+        bad = os.path.join(self.directory, "bad.json")
+        with open(bad, "w", encoding="utf-8") as handle:
+            handle.write("{坏掉的 json")
+        self.assertEqual(bake.load_extra_channels(bad), [])
+
+
 class ProbeStreamTest(unittest.TestCase):
     """探测：必须跟随 302、必须真的取到分段字节，空列表要判死。"""
 
