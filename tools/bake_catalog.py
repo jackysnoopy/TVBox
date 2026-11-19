@@ -208,6 +208,11 @@ def _download(url: str, out_path: str, retries: int = 8) -> None:
                     tail = resp.read()
                 if not tail:
                     break
+                # 服务器忽略 Range 时会用 200 从头返回整份文件。此时 tail 不是
+                # 「剩余尾部」，而是整个文件；主循环刚写过的完整内容已经在 part 里，
+                # 再追加就会重复（logos.json 就是这样越滚越大直到 416）。
+                if resp.status == 200:
+                    break
                 with open(part, "ab") as fh:
                     fh.write(tail)
                 pos += len(tail)
@@ -931,6 +936,29 @@ def load_overrides(path: str | None = None) -> dict[str, list[dict]]:
     return result
 
 
+def load_blocked_urls(path: str | None = None) -> set[str]:
+    """读取人工黑名单 URL（source-overrides.json 顶层 blockedURLs）。
+
+    用于剔除「技术上能出片、内容却是别的台」的错台源（如 voc.com.cn 那条
+    挂 CCTV-1 名字实际播花星综合）。烘焙时在归类分组阶段按 URL 精确剔除，
+    这样错台源根本不进 catalog，运行期刷新也不会把它带回来。
+    文件缺失/字段缺失都当空黑名单，绝不让烘焙失败。
+    """
+    target = path or OVERRIDES_PATH
+    if not os.path.exists(target):
+        return set()
+    try:
+        with open(target, "r", encoding="utf-8") as handle:
+            payload = json.load(handle)
+    except (OSError, ValueError) as exc:
+        print("  !! 黑名单读取失败（忽略）：%s" % exc, flush=True)
+        return set()
+    blocked = payload.get("blockedURLs") or []
+    if not isinstance(blocked, list):
+        return set()
+    return {u.strip() for u in blocked if isinstance(u, str) and u.strip()}
+
+
 def merge_stream_order(builtin: list[dict], curated: list[dict]) -> list[dict]:
     """合并内置源与人工补源。
 
@@ -956,8 +984,9 @@ def build(refresh: bool, probe: bool, region_filter: list[str], with_logos: bool
     channels = load_api("channels.json", refresh)
     logos = load_api("logos.json", refresh) if with_logos else []
     overrides = load_overrides()
-    print("  streams=%d channels=%d logos=%d 补源频道=%d"
-          % (len(streams), len(channels), len(logos), len(overrides)), flush=True)
+    blocked_urls = load_blocked_urls()
+    print("  streams=%d channels=%d logos=%d 补源频道=%d 黑名单=%d"
+          % (len(streams), len(channels), len(logos), len(overrides), len(blocked_urls)), flush=True)
     logo_index = load_logo_index(logos) if logos else {}
 
     channel_by_id = {c["id"]: c for c in channels if c.get("id")}
@@ -970,6 +999,8 @@ def build(refresh: bool, probe: bool, region_filter: list[str], with_logos: bool
             continue
         url = stream.get("url") or ""
         if not url.lower().startswith(("http://", "https://")):
+            continue
+        if url in blocked_urls:
             continue
         grouped.setdefault(cid, []).append(stream)
 

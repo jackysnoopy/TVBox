@@ -184,6 +184,48 @@ class OverridesTest(unittest.TestCase):
         self.assertEqual(merged[0], "builtin-alive", "内置有活源时补源不能顶到第一位")
         self.assertEqual(merged, ["builtin-alive", "curated-alive", "builtin-dead"])
 
+
+class BlockedURLsTest(unittest.TestCase):
+    """源黑名单：错台源按 URL 精确剔除，解析失败不能让烘焙崩。"""
+
+    def setUp(self):
+        self.directory = tempfile.mkdtemp(prefix="tvbox-blocked-")
+
+    def tearDown(self):
+        shutil.rmtree(self.directory, ignore_errors=True)
+
+    def _path(self, name="source-overrides.json"):
+        return os.path.join(self.directory, name)
+
+    def test_parses_urls_and_ignores_junk(self):
+        path = self._path()
+        with open(path, "w", encoding="utf-8") as handle:
+            json.dump({"blockedURLs": [
+                "http://bad.example/a.m3u8",
+                "  https://bad.example/b.m3u8  ",
+                "",
+                123,
+                None,
+            ]}, handle)
+        blocked = bake.load_blocked_urls(path)
+        self.assertEqual(blocked, {
+            "http://bad.example/a.m3u8",
+            "https://bad.example/b.m3u8",
+        }, "要去空白、丢掉非字符串与空串")
+
+    def test_missing_or_broken_is_empty(self):
+        self.assertEqual(bake.load_blocked_urls(self._path("nope.json")), set())
+        bad = self._path("bad.json")
+        with open(bad, "w", encoding="utf-8") as handle:
+            handle.write("{不是 json")
+        self.assertEqual(bake.load_blocked_urls(bad), set())
+
+    def test_no_field_is_empty(self):
+        path = self._path()
+        with open(path, "w", encoding="utf-8") as handle:
+            json.dump({"channels": {}}, handle)
+        self.assertEqual(bake.load_blocked_urls(path), set())
+
     def test_curated_first_when_builtin_all_dead(self):
         builtin = [{"url": "builtin-dead-1", "isAlive": False},
                    {"url": "builtin-dead-2", "isAlive": False}]

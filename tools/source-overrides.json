@@ -1,7 +1,12 @@
 {
   "version": 1,
-  "updatedAt": "2026-10-26",
-  "note": "人工补源表：iptv-org 里已死/缺失的频道，在这里按 channel id 补上可用直链。烘焙时合并进 catalog，流上标 origin=curated。加源只需在 channels 下增加数组项，不要改 bake_catalog.py。",
+  "updatedAt": "2026-11-19",
+  "note": "人工补源表：iptv-org 里已死/缺失的频道，在这里按 channel id 补上可用直链。烘焙时合并进 catalog，流上标 origin=curated。加源只需在 channels 下增加数组项，不要改 bake_catalog.py。blockedURLs 是全局黑名单：技术上能出片但内容错台的源，按 URL 精确剔除。",
+  "blockedURLs": [
+    "https://liveplay-srs.voc.com.cn/hls/tv/134_180adf.m3u8",
+    "http://223.110.241.204:6610/gitv/live1/G_CCTV-9-AVS-4K264/G_CCTV-9-AVS-4K264/index.m3u8"
+  ],
+  "blockedNote": "voc.com.cn 那条挂 CCTV-1 名字实际播『花星综合』；GITV 的 G_CCTV-9 路径实际推 CCTV-5 体育斯诺克。两条均 2026-11-19 抓帧确认错台，台标可见。",
   "channels": {
     "CCTV6.cn": [
       {
@@ -14,7 +19,7 @@
       {
         "url": "http://223.110.241.204:6610/gitv/live1/G_CCTV-1-AVS-4K264/G_CCTV-1-AVS-4K264/index.m3u8",
         "quality": "2160p",
-        "note": "江苏移动 GITV CDN，302 跳转；仅作降级备用，内置源可用时排在后面"
+        "note": "江苏移动 GITV CDN，302 跳转；2026-11-19 抓帧确认 CCTV-1 正片。原 voc.com.cn 错台源已拉黑，这条成为唯一存活源"
       }
     ],
     "CCTV2.cn": [
@@ -38,6 +43,13 @@
         "note": "江苏移动 GITV CDN，302 跳转；仅作降级备用"
       }
     ],
+    "CCTV7.cn": [
+      {
+        "url": "http://223.110.241.204:6610/gitv/live1/CCTV-7/CCTV-7/index.m3u8",
+        "quality": "1080p",
+        "note": "江苏移动 GITV CDN，2026-11-19 抓帧确认 CCTV-7 国防军事正片，台标正确"
+      }
+    ],
     "CCTV8.cn": [
       {
         "url": "http://223.110.241.204:6610/gitv/live1/G_CCTV-8-AVS-4K264/G_CCTV-8-AVS-4K264/index.m3u8",
@@ -45,11 +57,25 @@
         "note": "江苏移动 GITV CDN，302 跳转；仅作降级备用"
       }
     ],
-    "CCTV9.cn": [
+    "CCTV13.cn": [
       {
-        "url": "http://223.110.241.204:6610/gitv/live1/G_CCTV-9-AVS-4K264/G_CCTV-9-AVS-4K264/index.m3u8",
-        "quality": "2160p",
-        "note": "江苏移动 GITV CDN，302 跳转；仅作降级备用"
+        "url": "http://223.110.241.204:6610/gitv/live1/CCTV-13/CCTV-13/index.m3u8",
+        "quality": "1080p",
+        "note": "江苏移动 GITV CDN，2026-11-19 抓帧确认 CCTV-13 新闻直播，台标正确（原 go.bkpcp / 74.91 源已死）"
+      }
+    ],
+    "CCTV15.cn": [
+      {
+        "url": "http://223.110.241.204:6610/gitv/live1/G_CCTV-15/G_CCTV-15/index.m3u8",
+        "quality": "1080p",
+        "note": "江苏移动 GITV CDN，2026-11-19 抓帧确认 CCTV-15 音乐正片，台标正确"
+      }
+    ],
+    "CCTV17.cn": [
+      {
+        "url": "http://223.110.241.204:6610/gitv/live1/G_CCTV-17/G_CCTV-17/index.m3u8",
+        "quality": "1080p",
+        "note": "江苏移动 GITV CDN，2026-11-19 抓帧确认 CCTV-17 农业农村正片，台标正确"
       }
     ]
   }
